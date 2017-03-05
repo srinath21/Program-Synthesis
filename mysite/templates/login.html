@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block nav %}
+  <li><a href="/welcome/">Home</a></li>
+  <li class="active">Login</li>
+{% endblock %}
+{% block content %}
+  <center>
+  <form action="" method="post">
+
+    <label for="name">Username:</label><input type="text" name="name" id="name" required><br>
+    <label for="password">Password:<input type="password" name="password" id="password" required><br>
+    <input type="submit" value="Login">
+  </form>
+  </center>
+  <ul>
+    {% for user in user_list %}
+      <li>{{ user }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--viewport:enables webpage to identify the width of the device and adapt the content appropriately-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+	<div class="jumbotron">
+		<div class="container">
+			{% block content %}
+			{% endblock %}
+			{% block footer %}
+			
+		</div>
+	</div>
+</body>
+</html>

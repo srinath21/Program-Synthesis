@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Snippet World{% endblock %}
+{% block nav %}
+<li class="active">Home</li>
+{% endblock %}
+{% block content %}
+<a href="/login/">
+<p>Do you want to Login?
+</a>
+<a href="/register/">
+  <p>Register Here!</p>
+</a>
+<form>
+  <label>What do you want help with?</label>
+  <select>
+    <option value="social">Social Media</option>
+    <option value="online_retail">Online Retail</option>
+  </select>
+</form>
+{% endblock %}

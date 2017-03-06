@@ -5,17 +5,26 @@
   <li class="active">Login</li>
 {% endblock %}
 {% block content %}
-  <center>
-  <form action="" method="post">
-
-    <label for="name">Username:</label><input type="text" name="name" id="name" required><br>
-    <label for="password">Password:<input type="password" name="password" id="password" required><br>
-    <input type="submit" value="Login">
+  <div class="row row-content">
+  <form action="" class="form-horizontal col-sm-2" role="form" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Username:</label><input type="text" class="form-control" name="name" id="name"  required><br>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:<input type="password" class="form-control" name="password" id="password" required><br>
+    </div>
+    <div class="form-group">
+      <input type="submit" value="Login" class="btn btn-primary" class="form-control">
+    </div>
   </form>
-  </center>
+  </div>
+  <br>
+  <div class="row">
   <ul>
     {% for user in user_list %}
       <li>{{ user }}</li>
     {% endfor %}
   </ul>
+</div>
 {% endblock %}

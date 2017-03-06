@@ -15,11 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from mysite import views
-
+from mysite import views as views1
+from searchApp import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^welcome/$', views.Startpage),
+    url(r'^welcome/$', views1.Startpage),
     url(r'^login/$', views.LoginPage),
     url(r'^register/$', views.Register),
 ]

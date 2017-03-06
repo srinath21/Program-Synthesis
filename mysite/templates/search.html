@@ -1,31 +1,39 @@
 {% extends "base.html" %}
-  {% block title %}Snippet World{% endblock %}
-  {% block nav %}
-    <li class="active">Home</li>
-  {% endblock %}
-  {% block content %}
-    <div class="col-md-3">
-      <a href="/login/">
-        <p>Do you want to Login?
-      </a>
-    </div>
-    <div class="col-md-3">
-      <a href="/register/">
-        <p>Register Here!</p>
-      </a>
-    </div>
-    <div class="col-md-6">
-      <form class="form-horizontal" role="form" action="/register/" method="get">
-        <div class="form-group">
-          <label>What do you want help with?</label>
-          <select class="form-control" >
-            <option value="social">Social Media</option>
-            <option value="online_retail">Online Retail</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <input type="submit" class="form-control btn btn-primary" value="Search">
-        </div>
-      </form>
-    </div>
-  {% endblock %}
+{% block nav %}
+<li><a href="/welcome/">Home</a></li>
+<li class="active">Search</li>
+{% endblock %}
+{% block title %}Snippet World{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row row-content">
+		<div class="col-sm-6"><center>
+			<form action="/searchresult/" class="form-horizontal col-sm-6" role="form"  method="get">
+				<div class="form-group">
+					<label for="options">What would like to search for?</label>
+					<select name="option" class="form-control" id="options">
+					{% for option in options_list %}
+						<option>{{ option }}</option>
+					{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<input type="submit" class="form-control col-sm-1 btn btn-default" value="Search">
+				</div>
+			</form></center>
+		</div>
+		<div class="col-sm-1 col-sm-offset-5">
+			<a href="/logout/" class="btn btn-primary">Logout</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<br><br>
+<div class="container">
+	<div class="row row-content">
+		<p>Do you wish to help us?</p>
+	</div>
+</div>
+{% endblock %}

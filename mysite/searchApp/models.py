@@ -13,7 +13,6 @@ class userInfo(models.Model):
 
 class Query(models.Model):
 	query_text=models.CharField(max_length=20, blank=False)
-	user=models.ForeignKey(User)
 
 	def __str__(self):
 		return self.query_text

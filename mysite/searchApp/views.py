@@ -1,25 +1,26 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from searchApp.models import Query, Code_Query, Code
 # Create your views here.
 def LoginPage(request):
 	users=User.objects.all()
 	if request.method=='POST':
 		name=request.POST.get('name')
 		user_password=request.POST.get('password')
-		user=authenticate(username=name, password=user_password)
+		user=authenticate(username=name, password=str(user_password))
 		if user is not None:
 			if user.is_active:
-				response="Logged in successfully"
-				return HttpResponse(response)
+				login(request, user)
+				return render(request, 'redirect.html',{'link':'/search/'})
 			else:
 				response="Invalid Password"
 				return HttpResponse(response)
 		else:
 			response="Username/ password are incorrect"
 			return HttpResponse(response)
-		
+
 	else:
 		return render(request, 'login.html',{'user_list':users})
 
@@ -30,6 +31,27 @@ def Register(request):
 		last_name=request.POST.get('last_name')
 		email=request.POST.get('email')
 		password=request.POST.get('password')
-		User.objects.create_user(username, email, password)
-		return HttpResponse("Success")
-	return render(request, 'register.html')
+		user=User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
+		return render(request, 'redirect.html',{'link':'/login/'})
+	else:
+		return render(request, 'register.html')
+
+def Search(request):
+	if request.user.is_authenticated():
+		query=Query.objects.all()
+		return render(request, 'search.html', {'options_list':query, 'user':request.user})
+	return render(request, 'redirect.html', {'link':'/login/'})
+
+def SearchResult(request):
+	if request.method=='GET':
+		option=request.GET.get('option')
+		query=Query.objects.get(query_text=option)
+		query_id=query.id
+		code_query=Code_Query.objects.all()
+		for code_object in code_query:
+			if query_id==code_object.query:
+				return render(request, 'searchResult.html', {'code_exists':True, 'code':Code.objects.get(id=code_object.id)})
+		return render(request, 'searchResult.html', {'code_exists':False})
+def Logout(request):
+	logout(request)
+	return render(request, 'redirect.html', {'link':'/welcome/'})

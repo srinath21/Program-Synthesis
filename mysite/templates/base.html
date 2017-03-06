@@ -20,6 +20,15 @@
 				<div class="col-sm-5">
 					<h1><center>Snippet World</center></h1>
 				</div>
+				<div class="col-md-1 col-md-offset-5">
+					<br><br><br><br>
+					{{ user.email }}
+					{% if logout %}
+					<form action="/logout/" class="form-horizontal" role="form" method="get">
+						<input type="submit" class="btn btn-primary" value="Log Out">
+					</form>
+					{% endif %}
+				</div>
 			</div>
 		</div>
 	</header>
@@ -31,20 +40,16 @@
 					{% endblock %}
 				</ul>
 			</div>
-		</div>
-		<br>
-		<br>
-		<div class="container">
-			<div class="row">
-			{% block content %}
-			{% endblock %}
-			{% block footer %}
-			{% endblock %}
-			</div>
-		</div>
-		<hr>
+	</div>
+	<br>
+	<br>
+		{% block content %}
+		{% endblock %}
+		{% block footer %}
+		{% endblock %}
+	<hr>
 
-		<footer class="row-footer">
+	<footer class="row-footer">
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12" >

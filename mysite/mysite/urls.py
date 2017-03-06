@@ -18,8 +18,12 @@ from django.contrib import admin
 from mysite import views as views1
 from searchApp import views
 urlpatterns = [
+    url(r'^$', views1.Startpage),
     url(r'^admin/', admin.site.urls),
     url(r'^welcome/$', views1.Startpage),
     url(r'^login/$', views.LoginPage),
     url(r'^register/$', views.Register),
+    url(r'^search/$',views.Search),
+    url(r'^logout/$',views.Logout),
+    url(r'^searchresult/$',views.SearchResult),
 ]

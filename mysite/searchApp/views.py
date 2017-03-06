@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.http import HttpResponse
+from searchApp.models import Query
 # Create your views here.
 def LoginPage(request):
 	users=User.objects.all()
@@ -11,8 +12,9 @@ def LoginPage(request):
 		user=authenticate(username=name, password=user_password)
 		if user is not None:
 			if user.is_active:
+				query=Query.objects.all()
 				response="Logged in successfully"
-				return HttpResponse(response)
+				return render(request, '/search/',{'options_list':query})
 			else:
 				response="Invalid Password"
 				return HttpResponse(response)
@@ -30,6 +32,9 @@ def Register(request):
 		last_name=request.POST.get('last_name')
 		email=request.POST.get('email')
 		password=request.POST.get('password')
-		User.objects.create_user(username, email, password)
+		user=User.objects.create_user(username, email, password, first_n)
+		user.first_name=first_name
+		user.last_name=last_name
+		user.save()
 		return HttpResponse("Success")
 	return render(request, 'register.html')

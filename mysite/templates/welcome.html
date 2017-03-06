@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+  {% block title %}Snippet World{% endblock %}
+  {% block nav %}
+    <li class="active">Home</li>
+  {% endblock %}
+  {% block content %}
+<div class="container">
+  <div class="row row-content">
+    <div class="col-md-3">
+      <a href="/login/">
+        <p>Do you want to Login?
+      </a>
+    </div>
+    <div class="col-md-3">
+      <a href="/register/">
+        <p>Register Here!</p>
+      </a>
+    </div>
+    <div class="col-md-6">
+      <form class="form-horizontal" role="form" action="/register/" method="get">
+        <div class="form-group">
+          <label>What do you want help with?</label>
+          <select class="form-control" >
+            <option value="social">Social Media</option>
+            <option value="online_retail">Online Retail</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <input type="submit" class="form-control btn btn-primary" value="Search">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  {% endblock %}

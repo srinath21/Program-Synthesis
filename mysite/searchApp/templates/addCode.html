@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block nav %}
+<li><a href="/welcome/">Home</a></li>
+<li class="active">Add Code</li>
+{% endblock %}
+{% block title %}Snippet World{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row row-content">
+    <div class="col-sm-6" style="border-left: 1px solid; padding-left:50px" >
+			<form action="" class="form-horizontal col-sm-6" role="form" method="post">
+
+			{% csrf_token %}
+				<div class="form-group">
+					<label for="insertCode">Would you like to add code?</label>
+					<select name="option" class="form-control" id="options">
+						{% for option in options_list %}
+							<option>{{ option }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="functionType">What's the functionality?</label>
+					<select id="functionType" name="functionType" class="form-control">
+						<option>God knows bro..</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<textarea class="form-control" rows="5" style="width:400px" placeholder="Paste your code here"></textarea>
+				</div>
+				<div class="form-group">
+					<input type="submit" style="resize:horizontal; width:180px" class="form-control btn btn-default" value="Add Code">
+				</div>
+			</form>
+		</div>
+	</div>
+	<br><hr>
+	<div class="row row-content">
+		<h3>Or do you want to add code for a new Application?</h3>
+			<form action="" class="form-horizontal col-sm-6" role="form" method="post">
+
+			{% csrf_token %}
+				<div class="form-group">
+					<label for="applicationName">
+						What's the type of application?
+					</label>
+					<input type="text" style="resize:horizontal; width:250px" class="form-control" name="applicationName" id="applicationName">
+				</div>
+				<div class="form-group">
+					<label for="applicationCode">
+					Paste or Upload your Code here
+					</label>
+					<textarea name="applicationCode" class="form-control" rows="10" cols="70" id="applicationCode" placeholder="Paste Your Code Here"></textarea>
+				</div>
+				<div class="form-group">
+					<input type="submit" style="resize:horizontal; width:200px" class="form-control btn btn-default" value="Submit Code">
+				</div>
+			</form>
+	</div>
+</div>
+{% endblock %}

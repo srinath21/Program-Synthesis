@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--viewport:enables webpage to identify the width of the device and adapt the content appropriately-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}" type="text/css">
+	<title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/welcome/"><span aria-hidden="true">Home</a><li>
+					<li><a href="">About</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li style="padding-right:240px">
+						<form method="get" action="" class="navbar-form" role="search">
+							<div class="form-group">
+								<input type="text" style="resize:horizontal; width:300px" class="form-control" name="search" placeholder="Search">
+							</div>
+							<div class="form-group">
+								<input type="submit" class="form-control btn btn-default" value="Search">
+							</div>
+						</form>
+					</li>
+					{% if user.first_name %}
+					<li style="color:white;width:160px" class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>{{user.first_name}}</strong><span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-header">Account</li>
+								<li><a href="#">Profile</a></li>
+								<li><a href="#">Settings</a></li>
+								<li role="separator" class="divider"></li>
+								<li><a href="/logout/">Logout</a></li>
+							</ul>
+					</li>
+					</li>
+					{% elif user.username %}
+					<li style="color:white; width:160px" class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>{{user.username}}</strong><span class="caret"></span></a>					
+						<ul class="dropdown-menu">
+							<li class="dropdown-header">Account</li>
+							<li><a href="#">Profile</a></li>
+							<li><a href="#">Settings</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="/logout/">Logout</a></li>
+						</ul>
+				</li>
+
+					{% else %}
+					<li style="color:white; width:160px">
+						<a href="/login/" id="loginButton"><center><strong>Login</strong></center></a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<header class="jumbotron">
+		<div class="container">
+		<br><br><br><br>
+			<div class="row row-header">
+				<div class="col-sm-5">
+					<h1><center>Snippet World</center></h1>
+				</div>
+				<div style="padding-top:110px" class="col-md-1 col-md-offset-5">
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="container">
+			<div class="row">
+				<ul class="breadcrumb">
+					{% block nav %}
+					{% endblock %}
+				</ul>
+			</div>
+	</div>
+	<br>
+	<br>
+		{% block content %}
+		{% endblock %}
+		{% block footer %}
+		{% endblock %}
+	<hr>
+
+	<footer class="row-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12" >
+						<p>Thank You for visiting the site</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

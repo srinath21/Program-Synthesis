@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+  {% block title %}Snippet World{% endblock %}
+  {% block nav %}
+    <li class="active">Home</li>
+  {% endblock %}
+  {% block content %}
+<div class="container">
+  <div class="row row-content">
+    <div class="col-sm-3">
+        <p>Do you want to Login?</p>
+    </div>
+    <div class="col-sm-3">
+        <p>Register Here!</p>
+    </div>
+  </div>
+  <hr>
+  <div class="row row-content">
+    <h3>Some more Stuff</h3>
+    <h6>Do you want to find some code?</h6>
+    <p><a href="/search/">Go find some code</a></p>
+  </div>
+  <hr>
+  <div class="row row-content">
+    <h3>Some more Stuff...</h3>
+    <h6>Do you want to add some code</h6>
+    <p><a href="/search/">Add some code!</a></p>
+  </div>
+</div>
+{% endblock %}

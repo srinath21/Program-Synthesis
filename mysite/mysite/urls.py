@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^search/$',views.Search),
     url(r'^logout/$',views.Logout),
     url(r'^searchresult/$',views.SearchResult),
+    url(r'^insertCode/$', views.addCode),
 ]

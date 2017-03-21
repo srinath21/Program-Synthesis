@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from searchApp.models import Query, Code_Query, Code
 # Create your views here.
 def LoginPage(request):
@@ -13,7 +13,7 @@ def LoginPage(request):
 		if user is not None:
 			if user.is_active:
 				login(request, user)
-				return render(request, 'redirect.html',{'link':'/search/'})
+				return HttpResponseRedirect('/welcome/')
 			else:
 				response="Invalid Password"
 				return HttpResponse(response)
@@ -32,7 +32,7 @@ def Register(request):
 		email=request.POST.get('email')
 		password=request.POST.get('password')
 		user=User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
-		return render(request, 'redirect.html',{'link':'/login/'})
+		return HttpResponseRedirect('/login/')
 	else:
 		return render(request, 'register.html')
 
@@ -40,7 +40,7 @@ def Search(request):
 	if request.user.is_authenticated():
 		query=Query.objects.all()
 		return render(request, 'search.html', {'options_list':query, 'user':request.user})
-	return render(request, 'redirect.html', {'link':'/login/'})
+	return HttpResponseRedirect('/login/')
 
 def SearchResult(request):
 	if request.method=='GET':
@@ -54,4 +54,7 @@ def SearchResult(request):
 		return render(request, 'searchResult.html', {'code_exists':False})
 def Logout(request):
 	logout(request)
-	return render(request, 'redirect.html', {'link':'/welcome/'})
+	return HttpResponseRedirect('/welcome/')
+
+def addCode(request):
+	return render(request, 'addCode.html')

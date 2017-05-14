@@ -17,6 +17,16 @@
 <li><a href="/welcome/">Home</a></li>
 <li class="active">Search</li>
 {% endblock %}
+{% block script %}
+function report(value) {
+alert(value)
+//Just for testing purpose
+var x = document.getElementById("functionType");
+var option = document.createElement("option");
+option.text = "hello";
+x.add(option);
+}
+{% endblock %}
 {% block title %}Snippet World{% endblock %}
 {% block content %}
 <div class="container">
@@ -46,21 +56,16 @@
 			<p style="padding:20px; padding-bottom:0px">Search for a particular functionality for your desired application.</p>
 			<form action="/searchresult/" style="padding:20px" class="form-horizontal" name="doubleOption" role="form"  method="get">
 				<div class="form-group col-sm-4">
-					<select style="width:220px" name="option" class="form-control" id="options">
+					<select style="width:220px" name="option" class="form-control" id="options" onchange="report(this.value)">
 						<option default>--Choose an application--</option>
 					{% for option in appFunc.keys %}
-						<option>{{ option }}</option>
+						<option value={{option}}>{{ option }}</option>
 					{% endfor %}
 					</select>
 				</div>
 				<div class="form-group col-sm-4">
 					<select id="functionType" style="width:220px" name="functionType" class="form-control">
 						<option default>--Choose a functionality--</option>
-						{% for options in appFunc.values %}
-             {%for value in options %}
-							<option> {{ value }}</option>
-              {% endfor %}
-						{% endfor %}
 					</select>
 				</div>
 				<div class="col-sm-4"></div>

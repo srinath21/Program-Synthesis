@@ -1,29 +1,49 @@
 {% extends "base.html" %}
+  {% block header %}
+<header class="jumbotron">
+    <div class="container">
+    <br><br><br><br>
+      <div class="row row-header">
+        <div class="col-sm-12">
+          <br><br>
+	  <div style="height:65vh">
+          <h1><center><code style="background-color:black; color:#00c499; font-size:80px">Snippet World</code></center></h1><br>
+          <p><center><code style="background-color:black; color:#00c499; font-size:20px">Find your code snippets here!</code></center></p>
+	  </div>
+	  <center><a href="#bottom1" class="myBtn myButton">Explore <span style="width:10px" class="caret"></span></a></center>
+        </div>
+      </div>
+    </div>
+  </header>
+  {% endblock %}
   {% block title %}Snippet World{% endblock %}
   {% block nav %}
     <li class="active">Home</li>
   {% endblock %}
   {% block content %}
 <div class="container">
+  <div class="row row-header">
+    <h2 style="text-align:center">What is Snippet World?</h2>
   <div class="row row-content">
-    <div class="col-sm-3">
-        <p>Do you want to Login?</p>
-    </div>
-    <div class="col-sm-3">
-        <p>Register Here!</p>
-    </div>
+    <p style="padding:20px; text-align:center; font-size:18px;">We at <code>Snippet World</code> provide a platform to share and access code snippets for various functionalities over a wide range of
+      applications. You can find code for various functionalities as well as share your knowledge by providing us with your own code snippets.</p>
   </div>
   <hr>
+  <div class="row row-header">
+    <h2 style="text-align:center">Find Some Code!</h2>
+  </div>
   <div class="row row-content">
-    <h3>Some more Stuff</h3>
-    <h6>Do you want to find some code?</h6>
-    <p><a href="/search/">Go find some code</a></p>
+    <p style="padding:20px; text-align:center; font-size:18px;">Find code snippets for your desired requirements. We have a variety of functionalities over a vast range of applications to help you choose from. Furthermore you can copy the snippets and use them to help you develop your own applications.</p>
+    <center><a href="/search/" class="btn myButton2">Search</a></center>
   </div>
   <hr>
-  <div class="row row-content">
-    <h3>Some more Stuff...</h3>
-    <h6>Do you want to add some code</h6>
-    <p><a href="/search/">Add some code!</a></p>
+  <div class="row row-header">
+    <h2 style="text-align:center">Think you can help us?</h2>
   </div>
+  <div class="row row-content">
+    <p style="padding:20px; text-align:center; font-size:18px;">You can support us by adding your own code snippets for a new functionality for an already existing application or for a new application itself. We would greatly appreciate your help. </p>
+    <center><a href="/insertCode/" class="btn myButton2">Add</a></center>
+  </div>
+</div>
 </div>
 {% endblock %}

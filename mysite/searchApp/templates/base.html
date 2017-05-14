@@ -7,14 +7,19 @@
 	<!--viewport:enables webpage to identify the width of the device and adapt the content appropriately-->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-
+	<!--<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">-->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+	<link href='//fonts.googleapis.com/css?family=Changa' rel='stylesheet'>
 	<!-- Optional theme -->
+	<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel="stylesheet">
 	<link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}" type="text/css">
+	<link href="{% static 'css/bootstrap-social.css' %}" rel="stylesheet" type="text/css">
 	<title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#00c499" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -27,66 +32,95 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="/welcome/"><span aria-hidden="true">Home</a><li>
-					<li><a href="">About</a></li>
+					<li><a href="/welcome/"><code>Snippet World</code></a></li>
+					<li {% block home %}{% endblock %}><a href="/welcome/"><span aria-hidden="true"><span class="glyphicon glyphicon-home"></span> <b>Home</b></a><li>
+					<li><a href=""><span class="glyphicon glyphicon-info-sign"></span> <b>About</b></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li style="padding-right:240px">
-						<form method="get" action="" class="navbar-form" role="search">
+						<form method="get" action="/searchresult/" class="navbar-form" role="search">
 							<div class="form-group">
-								<input type="text" style="resize:horizontal; width:300px" class="form-control" name="search" placeholder="Search">
+								<!--
+								<select class="form-control selectpicker" title="" name="option" style="width:240px" data-show-icon="true">
+									<option disabled selected value> Search </option>
+									{% for option in options_list %}
+									<option data-divider="true">{{ option }}</option>
+									{% endfor %}
+								</select>
+							-->
+								<input type="text" class="form-control" name="option" id="searchBar" placeholder="Search" style="width:300px">
 							</div>
 							<div class="form-group">
-								<input type="submit" class="form-control btn btn-default" value="Search">
+								<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
 							</div>
 						</form>
 					</li>
 					{% if user.first_name %}
 					<li style="color:white;width:160px" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>{{user.first_name}}</strong><span class="caret"></span></a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><center><span class="glyphicon glyphicon-user"></span> <strong>{{user.first_name}}</strong><span class="caret"></span></center></a>
 							<ul class="dropdown-menu">
 								<li class="dropdown-header">Account</li>
-								<li><a href="#">Profile</a></li>
-								<li><a href="#">Settings</a></li>
+								<li><a href="/user/profile/"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+								<li><a href="/user/settings/"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
 								<li role="separator" class="divider"></li>
-								<li><a href="/logout/">Logout</a></li>
+								<li><a href="/logout/"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
 							</ul>
 					</li>
 					</li>
 					{% elif user.username %}
 					<li style="color:white; width:160px" class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>{{user.username}}</strong><span class="caret"></span></a>					
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <strong>{{user.username}}</strong><span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li class="dropdown-header">Account</li>
-							<li><a href="#">Profile</a></li>
-							<li><a href="#">Settings</a></li>
+							<li><a href="/user/profile/"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+							<li><a href="/user/settings/"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="/logout/">Logout</a></li>
+							<li><a href="/logout/"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
 						</ul>
 				</li>
 
 					{% else %}
 					<li style="color:white; width:160px">
-						<a href="/login/" id="loginButton"><center><strong>Login</strong></center></a></li>
+						<a href="/login/" id="loginButton"><center><span class="glyphicon glyphicon-log-in"></span><strong> Login</strong></center></a></li>
 					{% endif %}
 				</ul>
 			</div>
 		</div>
 	</nav>
-
-	<header class="jumbotron">
-		<div class="container">
-		<br><br><br><br>
-			<div class="row row-header">
-				<div class="col-sm-5">
-					<h1><center>Snippet World</center></h1>
+	<div id="loginModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close closeLogin" >&times;</button>
+					<h4 class="modal-title">Login</h4>
 				</div>
-				<div style="padding-top:110px" class="col-md-1 col-md-offset-5">
+				<div class="modal-body">
+					<form class="form-inline" role="search">
+						<div class="form-group">
+							<input type="email" class="form-control" name="username" placeholder="Email" required>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" name="password" placeholder="Password" required>
+						</div>
+						<div class="form-group">
+							<label class="checkbox-inline">
+							<input type="checkbox" name="remember" id="remember"><label for="remember">Remember Me</label>
+						</label>
+						</div>
+						<p style="padding:2px"></p>
+						<button type="submit" class="btn btn-sm btn-info"><strong>Sign In</strong></button>
+						<button type="button" class="btn btn-default btn-sm closeLogin" >Cancel</button>
+					</form>
 				</div>
-			</div>
+ 			</div>
 		</div>
-	</header>
-	<div class="container">
+	</div>
+
+	{% block header %}
+	{% endblock %}
+	<button onclick="topFunction()" id="myBtn" title="Go to top"><span class="glyphicon glyphicon-arrow-up"</span></button>
+
+	<div class="container" id="bottom1">
 			<div class="row">
 				<ul class="breadcrumb">
 					{% block nav %}
@@ -100,20 +134,66 @@
 		{% endblock %}
 		{% block footer %}
 		{% endblock %}
-	<hr>
 
-	<footer class="row-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12" >
-						<p>Thank You for visiting the site</p>
-					</div>
+
+	<footer class="row-footer" style="background-color:gray">
+		<hr style="border:1px solid">
+				<div class="container">
+						<div class="row">
+								<div class="col-xs-5 col-xs-offset-1 col-sm-2 col-sm-offset-1">
+										<h5>Links</h5>
+										<ul class="list-unstyled">
+											<li><a href="#">Home</a></li>
+											<li><a href="#">About</a></li>
+											<li><a href="#">Menu</a></li>
+											<li><a href="#">Contact</a></li>
+										</ul>
+								</div>
+								<div class="col-xs-6 col-sm-5">
+								</div>
+								<div class="col-xs-12 col-sm-4">
+									<div class="nav navbar-nav" style="padding: 40px 10px;">
+											<a class="btn btn-social-icon btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus"></i></a>
+											<a class="btn btn-social-icon btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook"></i></a>
+											<a class="btn btn-social-icon btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin"></i></a>
+											<a class="btn btn-social-icon btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter"></i></a>
+											<a class="btn btn-social-icon btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube"></i></a>
+											<a class="btn btn-social-icon" href="mailto:"><i class="fa fa-envelope-o"></i></a>
+									</div>
+								</div>
+						</div>
 				</div>
-			</div>
 		</footer>
-
+		<div id="myModal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close closeLogin" >&times;</button>
+		        <h4 class="modal-title">Change Password</h4>
+		      </div>
+		      <div class="modal-body">
+		        <center>
+		        <form action="" method="post" class="form-horizontal" style="width:150px" role="form">
+		          <div class="form-group">
+		            <input type="password" class="form-control" name="oldpass" placeholder="Old Password" required>
+		          </div>
+		          <div class="form-group">
+		            <input type="password" class="form-control" name="newpass" placeholder="New Password" required>
+		          </div>
+		          <p style="padding:2px"></p>
+		          <button type="submit" class="btn btn-sm btn-info"><strong>Submit</strong></button>
+		          <button type="button" class="btn btn-default btn-sm closeLogin" >Cancel</button>
+		        </form>
+		      </center>
+		      </div>
+		    </div>
+		  </div>
+		</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="{% static 'js/custom.js' %}"></script>
+	<script src="{% static 'js/jquery.js' %}"></script>
+
 </body>
 </html>

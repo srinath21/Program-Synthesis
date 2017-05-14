@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block header %}
+<header class="jumbotron rest" style="height:30vh">
+  <div class="container">
+  <br><br>
+    <div class="row row-header">
+      <div class="col-sm-5">
+        <h1><center><code style="background-color:black; color:#00c499; font-size:50px;">Snippet World</code></center></h1>
+      </div>
+      <div style="padding-top:110px" class="col-md-1 col-md-offset-5">
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
+{% block nav %}
+<li><a href="/welcome/">Home</a></li>
+<li class="active">Add Code</li>
+{% endblock %}
+{% block title %}Snippet World{% endblock %}
+{% block content %}
+<div class="container">
+	<div class="row row-content">
+    <p>You've successfully added your code, which will be subject to review</p>
+  </div>
+</div>
+{% endblock %}

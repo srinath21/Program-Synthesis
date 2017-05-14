@@ -19,12 +19,18 @@ from mysite import views as views1
 from searchApp import views
 urlpatterns = [
     url(r'^$', views1.Startpage),
-    url(r'^admin/', admin.site.urls),
+    #url(r'^admin/', admin.site.urls),
     url(r'^welcome/$', views1.Startpage),
     url(r'^login/$', views.LoginPage),
     url(r'^register/$', views.Register),
     url(r'^search/$',views.Search),
     url(r'^logout/$',views.Logout),
     url(r'^searchresult/$',views.SearchResult),
-    url(r'^insertCode/$', views.addCode),
+    url(r'^insertCode/$', views.InsertCode),
+    url(r'^user/settings/$',views.Settings),
+    url(r'^user/profile/$',views.Profile),
+    url(r'^addcode/$',views.addCode),
+    url(r'^feedback/$', views.feedback),
+    url(r'^execute/$', views.Execute),
+    url(r'^passchange/$', views.password),
 ]

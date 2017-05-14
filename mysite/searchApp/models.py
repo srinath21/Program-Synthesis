@@ -12,14 +12,17 @@ class userInfo(models.Model):
 		return self.first_name and self.last_name
 
 class Query(models.Model):
-	query_text=models.CharField(max_length=20, blank=False)
-
+	application=models.CharField(max_length=20, blank=False)
+	function=models.CharField(max_length=20, blank=True)
+	language=models.CharField(max_length=20, blank=False)
+	app_description=models.TextField(blank=False)
+	function_description=models.TextField(blank=False)
 	def __str__(self):
-		return self.query_text
+		return str(self.id)
 
 class Code(models.Model):
 	code_text=models.TextField(max_length=20000, blank=False)
-
+	user=models.ForeignKey(User)
 	def __str__(self):
 		return str(self.id)
 
@@ -27,18 +30,23 @@ class Code_Query(models.Model):
 	query=models.OneToOneField(Query)
 	code=models.OneToOneField(Code)
 
+class User_Search(models.Model):
+	user=models.ForeignKey(User)
+	query=models.ForeignKey(Query)
+	code=models.ForeignKey(Code)
+
 class insertCode(models.Model):
     user=models.OneToOneField(User)
     query=models.OneToOneField(Query)
     codeText=models.TextField()
-    codeReview=models.TextField()
+    codeReview=models.BooleanField()
 
     def __str__(self):
-        return self.user and self.query
+        return self.user.username
 class Feedback(models.Model):
 	feedback_info=models.TextField(max_length=10000)
 	user=models.ForeignKey(User)
-	
+	query=models.ForeignKey(Query)
 	def __str__(self):
 		return str(User.id)
 

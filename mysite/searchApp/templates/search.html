@@ -1,4 +1,18 @@
 {% extends "base.html" %}
+{% block header %}
+<header class="jumbotron rest" style="height:30vh">
+  <div class="container">
+  <br><br>
+    <div class="row row-header">
+      <div class="col-sm-5">
+        <h1><center><code style="background-color:black; color:#00c499; font-size:50px;">Snippet World</code></center></h1>
+      </div>
+      <div style="padding-top:110px" class="col-md-1 col-md-offset-5">
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
 {% block nav %}
 <li><a href="/welcome/">Home</a></li>
 <li class="active">Search</li>
@@ -6,12 +20,15 @@
 {% block title %}Snippet World{% endblock %}
 {% block content %}
 <div class="container">
+	<h2>Find Some Code</h2>
+	<hr>
 	<div class="row row-content">
-		<div class="col-sm-6 left">
-			<form action="/searchresult/" class="form-horizontal col-sm-6" role="form"  method="get">
+		<p style="padding:20px; padding-bottom:0px">Select your desired aplication and access code snippets for all functionalities pertaining to the application.</p>
+		<div class="col-sm-6">
+			<form action="/searchresult/" class="form-horizontal" style="padding:20px" name="singleOption" role="form"  method="get">
 				<div class="form-group">
-					<label for="options">What would like to search for?</label>
-					<select name="option" class="form-control" id="options">
+						<select name="option" style="width:220px" class="form-control" id="options">
+						<option default>--Choose an application--</option>
 					{% for option in options_list %}
 						<option>{{ option }}</option>
 					{% endfor %}
@@ -23,39 +40,33 @@
 			</form>
 		</div>
 	</div>
-	<br><hr>
+	<hr>
 	<div class="row row-content">
-		<div class="col-sm-6 left">
-			<form action="/searchresult/" class="form-horizontal col-sm-6" role="form"  method="get">
-				<div class="form-group">
-					<label for="options">Or do you want find a particular functionality?</label>
-					<select name="option" class="form-control" id="options">
+		<div>
+			<p style="padding:20px; padding-bottom:0px">Search for a particular functionality for your desired application.</p>
+			<form action="/searchresult/" style="padding:20px" class="form-horizontal" name="doubleOption" role="form"  method="get">
+				<div class="form-group col-sm-4">
+					<select style="width:220px" name="option" class="form-control" id="options">
+						<option default>--Choose an application--</option>
 					{% for option in options_list %}
 						<option>{{ option }}</option>
 					{% endfor %}
 					</select>
 				</div>
-				<div class="form-group">
-					<label for="functionType">For what functionality?</label>
-					<select id="functionType" name="functionType" class="form-control">
-						<option>God knows bro..</option>
+				<div class="form-group col-sm-4">
+					<select id="functionType" style="width:220px" name="functionType" class="form-control">
+						<option default>--Choose a functionality--</option>
+						{% for option in functions_list %}
+							<option> {{ option }}</option>
+						{% endfor %}
 					</select>
 				</div>
+				<div class="col-sm-4"></div>
 				<div class="form-group">
 					<input type="submit" style="resize:horizontal; width:140px" class="form-control col-sm-1 btn btn-default" value="Search">
 				</div>
 			</form>
 		</div>
-	</div>
-</div>
-{% endblock %}
-
-{% block footer %}
-<br><br>
-<div class="container">
-	<div class="row row-content">
-		<p>Do you wish to help us?</p>
-		<p><a href="/insertCode/">Share your Code</a></p>
 	</div>
 </div>
 {% endblock %}

@@ -1,4 +1,18 @@
 {% extends "base.html" %}
+{% block header %}
+<header class="jumbotron rest" style="height:30vh">
+  <div class="container">
+  <br><br>
+    <div class="row row-header">
+      <div class="col-sm-5">
+        <h1><center><code style="background-color:black; color:#00c499; font-size:50px;">Snippet World</code></center></h1>
+      </div>
+      <div style="padding-top:110px" class="col-md-1 col-md-offset-5">
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
 {% block nav %}
 <li><a href="/welcome/">Home</a></li>
 <li class="active">Add Code</li>
@@ -7,26 +21,36 @@
 {% block content %}
 <div class="container">
 	<div class="row row-content">
-    <div class="col-sm-6" style="border-left: 1px solid; padding-left:50px" >
-			<form action="" class="form-horizontal col-sm-6" role="form" method="post">
+		<h2>Add Your Own Code</h2>
+		<hr>
+		<h4 style="padding:20px; padding-bottom:0px"><b>Improve an existing code snippet.</b></h4><br/>
+    <h5 style="padding:23px; padding-top:0px; padding-bottom:0px">If you think your code is better than an existing one, you can share your own code for an existing functionality here.</h5>
+    <div class="col-sm-6" >
+			<form action="/insertCode/" class="form-horizontal col-sm-6" style="padding:25px; padding-top:0px" role="form" method="post">
 
 			{% csrf_token %}
 				<div class="form-group">
-					<label for="insertCode">Would you like to add code?</label>
-					<select name="option" class="form-control" id="options">
+					<label for="applicationName">Choose the application</label>
+					<select name="applicationName" class="form-control" id="applicationName">
 						{% for option in options_list %}
-							<option>{{ option }}</option>
+							<option value="{{ option }}">{{ option }}</option>
 						{% endfor %}
 					</select>
 				</div>
 				<div class="form-group">
-					<label for="functionType">What's the functionality?</label>
+					<label for="functionType">Choose the functionality</label>
 					<select id="functionType" name="functionType" class="form-control">
-						<option>God knows bro..</option>
+						{% for option in functions_list %}
+							<option value="{{ option }}">{{ option }}</option>
+						{% endfor %}
 					</select>
 				</div>
+        <div class="form-group">
+          <label for="language1">Specify the language</label>
+          <input type="text" class="form-control" name="language1" id="language1" placeholder="Language">
+        </div>
 				<div class="form-group">
-					<textarea class="form-control" rows="5" style="width:400px" placeholder="Paste your code here"></textarea>
+					<textarea name="applicationCode" class="form-control" rows="10" style="width:600px" placeholder="Paste your code here"></textarea>
 				</div>
 				<div class="form-group">
 					<input type="submit" style="resize:horizontal; width:180px" class="form-control btn btn-default" value="Add Code">
@@ -36,24 +60,58 @@
 	</div>
 	<br><hr>
 	<div class="row row-content">
-		<h3>Or do you want to add code for a new Application?</h3>
-			<form action="" class="form-horizontal col-sm-6" role="form" method="post">
+		<h4 style="padding:20px; padding-bottom:0px"><b>Or do you want to add code for a new Application?</b></h4><br>
+      <h5 style="padding:25px; padding-top:0px">You can add code for a new functionality for an existing application or better still a new application itself</h5>
+    	<form  action="/addcode/" class="form-horizontal col-sm-12" style="padding:20px; padding-top:0px" role="form" method="post">
 
 			{% csrf_token %}
-				<div class="form-group">
+        <div class="col-sm-12">
+				<div class="form-group col-sm-6">
+          <center>
 					<label for="applicationName">
-						What's the type of application?
+						What's the name of the new application?
 					</label>
-					<input type="text" style="resize:horizontal; width:250px" class="form-control" name="applicationName" id="applicationName">
+					<input type="text" style="resize:horizontal; width:250px" class="form-control" name="applicationName" id="applicationName"><br>
+          <textarea class="form-control" name="app_description" style="width:300px; height:150px" required></textarea>
+          </center>
 				</div>
-				<div class="form-group">
+        <div class="form-group col-sm-6" style="border-left:1px solid; padding-left:20px">
+          <center>
+          <label for="applicationName">Choose the application</label>
+          <select name="option" class="form-control" style="width:200px" id="applicationName">
+            {% for option in options_list %}
+              <option value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+          </select>
+        </center>
+        </div><br><br><br><br>
+      </div>
+				<div class="form-group" style="padding:18px">
+          <center>
+					<label for="functionType">
+						Provide the name of the new functionality.
+					</label>
+					<input type="text" style="resize:horizontal; width:250px" class="form-control" name="functionType" id="functionType"><br>
+          <textarea class="form-control" style="width:500px; height:100px" name="function_description" placeholder="Function Description" required></textarea>
+          </center>
+				</div>
+        <div class="form-group">
+          <center>
+          <label for="language">Specify your language</label>
+          <input type="text" name="language" id="language" style="width:150px" class="form-control" placeholder="Language" required><br>
+        </center>
+        </div>
+				<div class="form-group" style="padding:18px">
+          <center>
 					<label for="applicationCode">
 					Paste or Upload your Code here
 					</label>
-					<textarea name="applicationCode" class="form-control" rows="10" cols="70" id="applicationCode" placeholder="Paste Your Code Here"></textarea>
+					<textarea name="applicationCode" class="form-control" rows="10" style="width:600px" id="applicationCode" placeholder="Paste Your Code Here"></textarea>
+        </center>
 				</div>
-				<div class="form-group">
-					<input type="submit" style="resize:horizontal; width:200px" class="form-control btn btn-default" value="Submit Code">
+				<div class="form-group" style="padding:18px;"><center>
+					<input type="submit" style="resize:horizontal; width:200px;" class="form-control btn btn-default" value="Submit Code">
+        </center>
 				</div>
 			</form>
 	</div>

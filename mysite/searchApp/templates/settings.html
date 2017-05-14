@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block header %}
+<header class="jumbotron rest" style="height:30vh">
+  <div class="container">
+  <br><br>
+    <div class="row row-header">
+      <div class="col-sm-5">
+        <h1><center><code style="background-color:black; color:#00c499; font-size:50px;">Snippet World</code></center></h1>
+      </div>
+      <div style="padding-top:110px" class="col-md-1 col-md-offset-5">
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
+{% block nav %}
+  <li><a href="/welcome/">Home</a></li>
+  <li class="active">User Settings</li>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+{% if not logout %}
+  <div class="row row-header">
+    <p>{{ update_status }}</p>
+    <h3><b>User Settings </b><button class="btn btn-primary btn-xs edit"><span class="glyphicon glyphicon-edit"></span> Edit</button></h3>
+    <hr>
+  </div>
+  <br><br>
+  <div class="row row-content" id="unEdit">
+    <div class="col-sm-6" >
+      <p><b style="padding-right:30px">Username:</b> {{ user.username }}</p>
+      <p><b style="padding-right:30px">Password:</b> <a class="btn btn-default" data-toggle="modal" data-target="#myModal">Change Password</a></p>
+
+      <p><b style="padding-right:50px">Email:</b> {{ user.email }}</p>
+    </div>
+    <div class="col-sm-6">
+      <p><b style="padding-right:30px">First Name:</b> {{ user.first_name }}</p>
+      <p><b style="padding-right:30px">Last Name:</b> {{ user.last_name }}</p>
+      <p><b style="padding-right:30px">Age:</b> {{ age }}</p>
+      <p><b style="padding-right:30px">Country:</b> {{ country }}</p>
+    </div>
+    <br><br>
+  </div>
+  <div class="row row-content" id="Edit">
+    <div class="col-sm-offset-11 col-sm-1 col-xs-offset-11 col-xs-1">
+      <button id="close" class="btn"><span class="glyphicon glyphicon-remove" style="position:relative; right:0px; top:0px"></span></button>
+    </div>
+    <br><br>
+    <form class="form-horizontal" role="form" action="" method="post">
+      {% csrf_token %}
+      <div class="col-sm-6" style="padding-left:30px">
+        <div class="form-group">
+          <label class="labelSetting" for="username">Username:</label>
+          <input type="text" class="form-control" name="username" id="username" value="{{ user.username }}" style="width:200px"/>
+        </div>
+        <div class="form-group">
+          <label for="email" class="labelSetting" style="padding-right:30px">Email:</label>
+          <input type="email" class="form-control" name="email" id="email" value="{{user.email}}" style="width:300px">
+        </div>
+        <br><br>
+
+      </div>
+
+<!-- Modal -->
+
+      <div class="col-sm-6" style="border-left:1px solid; padding-left:30px">
+        <div class="form-group">
+          <label for="first_name" class="labelSetting">First Name:</label>
+          <input type="text" class="form-control" name="first_name" id="first_name" value="{{ user.first_name }}" style="width:200px"/>
+        </div>
+        <div class="form-group">
+          <label for="last_name" class="labelSetting">Last Name:</label>
+          <input type="text" class="form-control" name="last_name" id="last_name" value="{{ user.last_name }}" style="width:200px">
+        </div>
+        <div class="form-group">
+          <label for="age" style="padding-right:45px" class="labelSetting">Age:</label>
+          <input type="number" class="form-control" name="age" min="13" id="age" value="{{ age }}" style="width:200px">
+        </div>
+        <div class="form-group">
+          <label for="country" style="padding-right:px">Country:</label>
+          <input type="text" class="form-control" name="country" id="country" value="{{ country }}" style="width:150px">
+        </div>
+        <br><br>
+      </div>
+      <div class="form-group">
+        <input type="submit" value="Submit" class="form-control btn btn-primary" style="width:80px">
+      </div>
+    </form>
+  </div>
+  {% endif %}
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" >&times;</button>
+        <h4 class="modal-title">Change Password</h4>
+      </div>
+      <div class="modal-body">
+        <center>
+        <form action="/passchange/" method="post" class="form-horizontal" style="width:150px" role="form">
+          {% csrf_token %}
+          <div class="form-group">
+            <input type="password" class="form-control" name="oldpass" placeholder="Old Password" required>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="newpass" placeholder="New Password" required>
+          </div>
+          <p style="padding:2px"></p>
+          <button type="submit" class="btn btn-sm btn-info"><strong>Submit</strong></button>
+          <button type="button" class="btn btn-default btn-sm" >Cancel</button>
+        </form>
+      </center>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

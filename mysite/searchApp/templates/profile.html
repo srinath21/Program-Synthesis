@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header %}
+<header class="jumbotron rest" style="height:30vh">
+  <div class="container">
+  <br><br>
+    <div class="row row-header">
+      <div class="col-sm-5">
+        <h1><center><code style="background-color:black; color:#00c499; font-size:50px;">Snippet World</code></center></h1>
+      </div>
+      <div style="padding-top:110px" class="col-md-1 col-md-offset-5">
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
+{% block nav %}
+  <li><a href="/welcome/">Home</a></li>
+  <li class="active">User Profile</li>
+{% endblock %}
+{% block content %}
+<br>
+<div class="container">
+		<div class="row row-header">
+			<h3><strong>Profile</strong></h3><hr><br>
+		</div>
+    <div class="row row-content">
+      <div class="panel-group" role="tablist" id="userProfile" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="headingUser">
+            <h3 class="panel-title">
+              <a role="button" data-toggle="collapse" data-parent="#userProfile" href="#user" aria-expanded="true" aria-controls="user">
+                User
+              </a>
+            </h3>
+          </div>
+          <div role="tabpanel" class="panel-collapse collapse in" id="user" aria-labelledby="headingUser">
+            <div class="panel-body">
+		            <div class="col-sm-4" style="border-right:1px solid">
+                    <center>
+			               <img src="{% static 'images/male.png' %}" width="150px" height="150px" class="img-thumbnail" >
+                   </center>
+		            </div>
+		            <div class="col-sm-7" style="padding-left:50px">
+			               <h4>{{ user.first_name }} {{user.last_name}}</h4>
+			               <p>{{ user.email }}</p>
+                     <p>{{ age }}</p>
+                     <p>{{ country }}</p>
+		            </div>
+            </div>
+          </div>
+	    </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="userCode">
+          <h3 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#userProfile" href="#code" aria-expanded="true" aria-controls="danny">
+              Your codes
+            </a>
+          </h3>
+        </div>
+        <div role="tabpanel" class="panel-collapse collapse" id="code" arialabelledby="userCode">
+          <div class="panel-body">
+            <div class="col-sm-6"><span class="btn btn-default">Added Codes</span>
+              {% for key, value in code_history.items %}
+              <h4><b>{{value.0}}</b></h4>
+              <h5><b>{{value.1}}</b></h4>
+              <p>{{value.2}}</p>
+              <textarea class="form-control" cols="5" rows="5" readonly>{{value.3}}</textarea>
+              {% if value.4 %}
+                <p>Your code is valid</p>
+              {% else %}
+                <p>Your code is yet to be validated</p>
+              {% endif %}
+              {% endfor %}
+            </div>
+            <div class="col-sm-6"><span class="btn btn-default">Searched Codes</span>
+            {% for key, value in search_history.items %}
+            <h4><b>{{value.0}}</b></h4>
+            <h5><b>{{value.1}}</b></h5>
+            <textarea class="form-control" cols="5" rows="5" readonly>{{value.2}}</textarea>
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="userFeedback">
+          <h3 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#userProfile" href="#feedback" aria-expanded="true" aria-controls="feedback">
+              Your Feedbacks
+            </a>
+          </h3>
+        </div>
+        <div role="tabpanel" class="panel-collapse collapse" id="feedback" arialabelledby="userFeedback">
+          <div class="panel-body">
+            {% for key, value in feedbacks.items %}
+              <h4>{{ key }}</h4>
+              <p>{{ value }}</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+	</div>
+</div>
+</div>
+{% endblock %}

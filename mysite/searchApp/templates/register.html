@@ -1,4 +1,18 @@
 {% extends "base.html" %}
+{% block header %}
+<header class="jumbotron rest" style="height:30vh">
+  <div class="container">
+  <br><br>
+    <div class="row row-header">
+      <div class="col-sm-5">
+        <h1><center><code style="background-color:black; color:#00c499; font-size:50px;">Snippet World</code></center></h1>
+      </div>
+      <div style="padding-top:110px" class="col-md-1 col-md-offset-5">
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
 {% block title %}Register{% endblock %}
 {% block nav %}
   <li><a href="/welcome/">Home</a></li>
@@ -7,31 +21,32 @@
 {% block content %}
 <div class="container">
 	<div class="row row content">
-		<form class="form-horizontal col-sm-3" role="form" action="/register/" method="post">
+    <center>
+      <h2><b>Sign Up For Free!</b></h2>
+      <p>Register to access all features</p><br/><br/>
+		<form class="form-horizontal col-sm-12" role="form" action="/register/" method="post">
 		{% csrf_token %}
 	    	<div class="form-group">
-		    <label for="first_name">Enter your first name:</label><input type="text" name="first_name" class="form-control" id="first_name" required>
-		 </div>
-		    <br>
-		 <div class="form-group">
-		      <label for="last_name">Enter your last name:</label><input type="text" class="form-control" name="last_name" id="last_name" required>
-	    	</div>
-	    	<br>
-	    	<div class="form-group">
-	      	<label for="email">Enter your email ID:</label><input type="email" class="form-control" name="email" id="email" required>
-	    	</div>
-	    	<br>
-	    	<div class="form-group">
-	      	<label for="username">Enter a username:</label><input type="text" class="form-control" name="username" id="username" required><br>
+		    <input type="text" name="first_name" class="form-control reg" id="first_name" placeholder="Enter your first name" required>
+		    </div>
+		    <div class="form-group">
+		      <input type="text" class="form-control reg" name="last_name" id="last_name" placeholder="Enter your last name" required>
 	    	</div>
 	    	<div class="form-group">
-	      	<label for="password">Enter a password:</label><input type="password" class="form-control" name="password" id="password" required>
+	      	<input type="email" class="form-control reg" name="email" id="email" placeholder="Enter your Email-ID" required>
 	    	</div>
-	    	<br>
 	    	<div class="form-group">
-	      	<input type="submit" class="form-control btn btn-primary" value="Register">
+	      	<input type="text" class="form-control reg" name="username" id="username" placeholder="Enter your username" required>
+	    	</div>
+	    	<div class="form-group">
+	      	<input type="password" class="form-control reg" name="password" id="password" placeholder="Enter your password" required>
+	    	</div>
+	    	<div class="form-group">
+          <input type="submit" class="form-control btn btn-primary" style="width:150px" value="Register">
 	    	</div>
 	  	</form>
+      <p>Already have an account? <a href="/login/">Login</a></p>
+    </center>
 	</div>
 </div>
 {% endblock %}

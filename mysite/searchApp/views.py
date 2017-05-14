@@ -41,17 +41,13 @@ def Register(request):
 def Search(request):
 	if request.user.is_authenticated():
 		queries=Query.objects.all()
-		applicationName=[]
-		functionType=[]
+		appFunc={}
 		for query in queries:
-			query_text=query.application.title()
-			function=query.function.title()
-			applicationName.append(query_text)
-			try:
-				functionType.append(function)
-			except:
-				continue;
-		return render(request, 'search.html', {'options_list':applicationName, 'functions_list':functionType, 'user':request.user})
+			if query.application in appFunc.keys():
+				appFunc[query.application].append(query.function)
+			else:
+				appFunc[query.application]=[query.function]
+		return render(request, 'search.html', {'appFunc':appFunc, 'user':request.user})
 	return HttpResponseRedirect('/login/')
 
 def SearchResult(request):

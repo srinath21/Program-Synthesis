@@ -29,7 +29,7 @@
 				<div class="form-group">
 						<select name="option" style="width:220px" class="form-control" id="options">
 						<option default>--Choose an application--</option>
-					{% for option in options_list %}
+					{% for option in appFunc.keys %}
 						<option>{{ option }}</option>
 					{% endfor %}
 					</select>
@@ -48,7 +48,7 @@
 				<div class="form-group col-sm-4">
 					<select style="width:220px" name="option" class="form-control" id="options">
 						<option default>--Choose an application--</option>
-					{% for option in options_list %}
+					{% for option in appFunc.keys %}
 						<option>{{ option }}</option>
 					{% endfor %}
 					</select>
@@ -56,8 +56,10 @@
 				<div class="form-group col-sm-4">
 					<select id="functionType" style="width:220px" name="functionType" class="form-control">
 						<option default>--Choose a functionality--</option>
-						{% for option in functions_list %}
-							<option> {{ option }}</option>
+						{% for options in appFunc.values %}
+             {%for value in options %}
+							<option> {{ value }}</option>
+              {% endfor %}
 						{% endfor %}
 					</select>
 				</div>
